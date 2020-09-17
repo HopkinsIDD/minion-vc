@@ -10,6 +10,7 @@ This is a guide for taking reads generated on a Oxford Nanopore sequencer and as
 * [Visualizing run metrics](#visualizing-run-metrics)
 * [Demultiplexing](#demultiplexing)
 * [Assembly](#assembly)
+* [Masking](#masking)
 
 ## Setting up your working directory
 
@@ -179,3 +180,27 @@ python3 scripts/make_consensus.py sample-name my-project
 This script also prints out the mean and median coverage of your genome and creates a coverage plot. You can open this coverage plot by opening a file browser and navigating to your **working directory**. Inside the `genomes` folder, there should be a file called `sample-name.coverage.pdf`. Double click this file to view the plot.
 
 After running the above two commands on all your samples, their final genomes can be found in the `genomes` folder inside your **working directory**.
+
+## Masking
+
+Before starting, make sure you are in your **working directory**:
+
+```
+cd my-project
+```
+
+In this step, we will use a previously-published list of potential recombinant sites to mask areas of the genome that could mess up our phylogenetic analysis. The `recomb_mask.gff ` file used to mask sites was originally published at https://figshare.com/s/d6c1c6f02eac0c9c871e by Weill et al.
+
+Before running the masking script, we need to make a text file containing the full paths to all genomes we want to mask. Use the following command to create this file:
+
+```
+ls -d genomes/* > genome_dirs.txt
+```
+
+Now we can run the masking script with the following command:
+
+```
+bash scripts/mask_fasta.sh my-project genomes/genome_dirs.txt recomb_mask.gff "mask" "gff_seqname"
+```
+
+These genomes now have recombinant regions masked, and can be used in phylogenetic analyses. For best results, run gubbins on the final, masked alignment prior to phylogenetic analysis.
