@@ -117,8 +117,8 @@ while read line; do
                         -p 1 \
                         -w $line \
                         -q dam \
-                        -r $DIR/00_demux/$NAME.filt.fastq.gz \
-                        -b $DIR/nanopolish/$NAME.aln.ref.nanopolish.sorted.bam \
+                        -r $DIR/demux/$NAME.filt.fastq.gz \
+                        -b $DIR/nanopolish/$NAME.aln.ref.sorted.bam \
                         -g $REF \
                         -t $NUM_CORES
         fi
