@@ -194,7 +194,7 @@ In this step, we will use a previously-published list of potential recombinant s
 Before running the masking script, we need to make a text file containing the full paths to all genomes we want to mask. Use the following command to create this file:
 
 ```
-ls -d genomes/* > genome_dirs.txt
+ls -d genomes/*.ref.fasta > genomes/genome_dirs.txt
 ```
 
 Now we can run the masking script with the following command:
