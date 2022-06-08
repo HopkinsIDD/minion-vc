@@ -6,7 +6,7 @@ This is a guide for taking reads generated on a Oxford Nanopore sequencer and ma
 
 This script assumpes the following:
 
-* That you have already set up your working directory as described in the {assembly instructions}(https://github.com/HopkinsIDD/minion-vc/blob/master/assembly_instructions.md) and that it contains a `demux` directory containing filtered FASTQ files (`*.filt.fastq.gz`).
+* That you have already set up your working directory as described in the [assembly instructions](https://github.com/HopkinsIDD/minion-vc/blob/master/assembly_instructions.md) and that it contains a `demux` directory containing filtered FASTQ files (`*.filt.fastq.gz`).
 
 * That the `scripts` folder inside your working directory contains the `map_genes.sh` script.
 
