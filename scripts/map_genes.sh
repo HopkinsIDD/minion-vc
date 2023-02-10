@@ -62,15 +62,20 @@ while read line; do
 		frac_mapped=$(echo "scale=7; $reads_mapped / $reads" | bc)
 
 		# calculate mean depth
-		mean_depth=$(awk '{ total += $3 } END { print total/NR }' $OUTDIR/$line.$name.depth.txt)
+		if [ -s $OUTDIR/$line.$name.depth.txt ]; then
+			mean_depth=$(awk '{ total += $3 } END { print total/NR }' $OUTDIR/$line.$name.depth.txt)
+		else
+			mean_depth=0
+		fi
 
 		# calculate percent of gene covered
 		pos_covered=$(awk -v MIN_COV=$MIN_COV 'BEGIN {count = 0} $3 > MIN_COV {count++} END {print count}' $OUTDIR/$line.$name.depth.txt)
-		total_pos=$(wc -l < $OUTDIR/$line.$name.depth.txt)
+		#total_pos=$(wc -l < $OUTDIR/$line.$name.depth.txt)
+		total_pos=$(awk '/^>/{if (l!="") print l; l=0; next}{l+=length($0)}END{print l}' $REFDIR/typing/$name.fasta)
 		frac_covered=$(echo "scale=7; $pos_covered / $total_pos" | bc)
 
 		# put all data into a file
-		printf "$name\t$reads_mapped\t$mean_depth\t$frac_covered\n" >> \
+		printf "$name\t$reads_mapped\t$frac_mapped\t$mean_depth\t$frac_covered\n" >> \
 		$OUTDIR/$line\_typing_summary.txt
 
 	done
